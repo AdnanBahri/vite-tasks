@@ -1,0 +1,52 @@
+import { initializeApp, getApp, getApps } from "firebase/app";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
+import {
+  collection,
+  doc,
+  getFirestore,
+  setDoc,
+  getDoc,
+  getDocs,
+  addDoc,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBttkopLCtozN57ruAmUXuH_F4OhCk8sEw",
+  authDomain: "recyclerview-cdfa2.firebaseapp.com",
+  databaseURL: "https://recyclerview-cdfa2.firebaseio.com",
+  projectId: "recyclerview-cdfa2",
+  storageBucket: "recyclerview-cdfa2.appspot.com",
+  messagingSenderId: "22237108991",
+  appId: "1:22237108991:web:049a8919b8323e1a624aca",
+};
+
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth();
+
+export {
+  app,
+  db,
+  auth,
+  getAuth,
+  onAuthStateChanged,
+  collection,
+  setDoc,
+  doc,
+  getDoc,
+  getDocs,
+  addDoc,
+  deleteDoc,
+  updateDoc,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+};
