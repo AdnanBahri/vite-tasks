@@ -34,10 +34,15 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/slices/authSlice";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const AvatarMenu = ({ className, ...props }) => {
   const dispatch = useDispatch();
-  const handleLogout = () => dispatch(logout());
+  const { user } = useSelector((state) => state.auth);
+  const handleLogout = () => {
+    dispatch(logout());
+  };
   return (
     <div className={className} {...props}>
       <DropdownMenu>

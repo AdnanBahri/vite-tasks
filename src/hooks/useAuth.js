@@ -1,7 +1,8 @@
 import { getAuth, onAuthStateChanged } from "@firebase/auth";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setAuthStatus } from "../redux/slices/authSlice";
+import { clearAuth, setAuthStatus, setUser } from "../redux/slices/authSlice";
+import { clearState } from "../redux/slices/groupSclice";
 
 const useAuth = () => {
   const auth = getAuth();
@@ -9,8 +10,13 @@ const useAuth = () => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) dispatch(setAuthStatus(true));
-      else dispatch(setAuthStatus(false));
+      if (user) {
+        dispatch(setAuthStatus(true));
+        dispatch(setUser(user.email));
+      } else {
+        dispatch(clearAuth());
+        dispatch(clearState());
+      }
     });
 
     return () => {

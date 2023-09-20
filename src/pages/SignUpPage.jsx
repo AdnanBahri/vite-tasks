@@ -47,7 +47,7 @@ const SignUpPage = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <main className="min-h-screen">
       <Card className="w-full max-w-md absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <CardHeader className="text-center">
           <CardTitle>Sign Up</CardTitle>
@@ -115,13 +115,15 @@ const SignUpPage = () => {
         <CardFooter className="mt-8 flex items-end">
           <CardDescription className="w-full flex items-center justify-center gap-x-2">
             <span>Already have an account? </span>
-            <Link className="font-semibold" href={"/signin"}>
-              Sign In
+            <Link to={"/signin"}>
+              <Button variant="link" className="font-semibold">
+                Sign In
+              </Button>
             </Link>
           </CardDescription>
         </CardFooter>
       </Card>
-    </div>
+    </main>
   );
 };
 export default SignUpPage;

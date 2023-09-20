@@ -5,22 +5,43 @@ import SignInPage from "./pages/SignInPage.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
 import { AuthRoute, ProtectedRoute } from "./structure";
 import useAuth from "./hooks/useAuth";
+import TasksPage from "./pages/TasksPage";
+import TasksDetailsPage from "./pages/TasksDetailsPage";
 
 const App = () => {
   useAuth();
   return (
-    <div className="">
+    <>
       <Header />
       <Routes>
-        <Route
-          path="/"
-          index
-          element={
-            <ProtectedRoute>
-              <HomePage />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/">
+          <Route
+            index
+            element={
+              <ProtectedRoute>
+                <HomePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/:groupId">
+            <Route
+              index
+              element={
+                <ProtectedRoute>
+                  <TasksPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/:groupId/:listName"
+              element={
+                <ProtectedRoute>
+                  <TasksDetailsPage />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
+        </Route>
         <Route
           path="/signin"
           element={
@@ -38,7 +59,7 @@ const App = () => {
           }
         />
       </Routes>
-    </div>
+    </>
   );
 };
 export default App;
