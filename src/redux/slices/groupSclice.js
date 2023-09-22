@@ -10,10 +10,10 @@ import {
   updateDoc,
   arrayRemove,
   arrayUnion,
+  deleteField,
+  Timestamp,
   db,
 } from "@/lib/firebase";
-import { Task, taskConverter } from "../../lib/converter";
-import { deleteField } from "firebase/firestore";
 
 /**
  *  Create New Collection
@@ -193,10 +193,14 @@ export const createTask = createAsyncThunk(
       // Reference to the user's category.
       const userRef = collection(db, user);
       const groupRef = doc(userRef, category);
+      const myTask = {
+        ...task,
+        "created-at": Timestamp.fromDate(new Date()),
+      };
 
       // Use arrayRemove to remove the item from the list.
       const resp = await updateDoc(groupRef, {
-        [listName]: arrayUnion(task),
+        [listName]: arrayUnion(myTask),
       });
 
       console.log("Item Created successfully.");

@@ -4,7 +4,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  signInWithPopup,
   onAuthStateChanged,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import {
   collection,
@@ -18,6 +20,7 @@ import {
   arrayRemove,
   arrayUnion,
   deleteDoc,
+  Timestamp,
   updateDoc,
 } from "firebase/firestore";
 
@@ -34,6 +37,7 @@ const firebaseConfig = {
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth();
+const provider = new GoogleAuthProvider();
 
 export {
   app,
@@ -50,9 +54,13 @@ export {
   getDocs,
   addDoc,
   deleteDoc,
+  Timestamp,
   deleteField,
   updateDoc,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  provider,
+  signInWithPopup,
+  GoogleAuthProvider,
 };

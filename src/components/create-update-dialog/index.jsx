@@ -25,23 +25,26 @@ const CreateUpdateDialog = ({ children, action, category, listName, task }) => {
   const { user } = useSelector((state) => state.auth);
 
   const handleSubmit = () => {
-    if (
-      todo.trim().toLowerCase() !==
-        task["task"].toString().trim().toLowerCase() ||
-      completed !== task["completed"]
-    ) {
-      switch (action) {
-        case "create":
+    switch (action) {
+      case "create":
+        if (todo.trim() !== "") {
           const item = {
             task: todo,
             completed: completed,
           };
           dispatch(createTask({ user, task: item, category, listName }));
-          break;
-        case "update":
+        }
+        break;
+      case "update":
+        if (
+          todo.trim().toLowerCase() !==
+            task["task"].toString().trim().toLowerCase() ||
+          completed !== task["completed"]
+        ) {
           const newTask = {
             task: todo,
             completed: completed,
+            "created-at": task["created-at"],
           };
           dispatch(
             updateTask({
@@ -52,11 +55,11 @@ const CreateUpdateDialog = ({ children, action, category, listName, task }) => {
               task: newTask,
             })
           );
-          //   console.log("Update");
-          break;
-        default:
-          break;
-      }
+        }
+        //   console.log("Update");
+        break;
+      default:
+        break;
     }
   };
 

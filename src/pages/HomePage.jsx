@@ -6,17 +6,22 @@ import { useSelector } from "react-redux";
 import { Spinner } from "react-activity";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getCollections } from "../redux/slices/groupSclice";
+import { deleteCollection, getCollections } from "../redux/slices/groupSclice";
 import { useNavigate } from "react-router-dom";
+import { Trash2 } from "lucide-react";
 
 const HomePage = () => {
-  const auth = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const { groups, loading } = useSelector((state) => state.groups);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const handleDeleteCollection = (name) => {
+    dispatch(deleteCollection({ user, name }));
+  };
+
   useEffect(() => {
-    if (!loading && !groups) dispatch(getCollections({ user: auth.user }));
+    if (!loading && !groups) dispatch(getCollections({ user }));
   }, [groups]);
 
   return (
@@ -43,10 +48,12 @@ const HomePage = () => {
                 groups.map((coll, index) => (
                   <Card
                     key={index.toString()}
-                    onClick={() => navigate(`/${coll}`)}
                     className="relative cursor-pointer hover:shadow-md"
                   >
-                    <CardContent className="p-0 py-10 px-8 flex flex-col items-center justify-center gap-y-2">
+                    <CardContent
+                      onClick={() => navigate(`/${coll}`)}
+                      className="p-0 py-10 px-8 flex flex-col items-center justify-center gap-y-2"
+                    >
                       <Avatar className="cursor-pointer h-8 w-8 sm:h-10 sm:w-10">
                         <AvatarImage
                           src={"https://github.com/shadcn.png"}
@@ -61,6 +68,12 @@ const HomePage = () => {
                         1/12 tasks completed
                       </p>
                     </CardContent>
+                    <button
+                      onClick={() => handleDeleteCollection(coll)}
+                      className="absolute top-3 right-3 z-10"
+                    >
+                      <Trash2 size={18} />
+                    </button>
                   </Card>
                 ))}
               <CustomDialog action="group">

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import BackButton from "../components/back-arrow";
-import { CardTitle } from "../components/ui/card";
+import { CardDescription, CardTitle } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import CustomDialog from "../components/groups-dialog";
 import { useSelector } from "react-redux";
@@ -56,8 +56,9 @@ const TasksPage = () => {
             />
           </div>
         ) : (
-          <div className="mt-10 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
             {subCollections &&
+              subCollections.length > 0 &&
               subCollections.map((data, index) => (
                 <TasksContainer
                   key={index.toString()}
@@ -66,6 +67,11 @@ const TasksPage = () => {
                   remove={() => removeList(data.listName)}
                 />
               ))}
+            {(!subCollections || subCollections.length === 0) && (
+              <CardDescription className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 sm:text-base lg:text-lg">
+                No Tasks for you yet.
+              </CardDescription>
+            )}
           </div>
         )}
       </div>

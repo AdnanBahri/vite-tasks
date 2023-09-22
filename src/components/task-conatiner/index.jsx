@@ -49,7 +49,11 @@ const TasksContainer = ({ name, items, remove }) => {
                   className="flex items-center gap-x-4"
                 >
                   <Checkbox checked={item["completed"]} />
-                  <CardDescription>{item["task"]}</CardDescription>
+                  <CardDescription
+                    className={`${item["completed"] && "line-through"}`}
+                  >
+                    {item["task"]}
+                  </CardDescription>
                 </div>
               )
             )}

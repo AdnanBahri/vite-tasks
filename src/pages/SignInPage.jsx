@@ -1,8 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "@/validators/auth";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { ColorRing } from "react-loader-spinner";
 
 import {
   Form,
@@ -27,6 +25,7 @@ import GoogleSignInButton from "@/components/google-button";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/slices/authSlice";
 import { Link } from "react-router-dom";
+import { Spinner } from "react-activity";
 
 const SignInPage = () => {
   const { loading, error } = useSelector((state) => state.auth);
@@ -91,18 +90,15 @@ const SignInPage = () => {
                 disabled={
                   loading || !form.formState.isDirty || !form.formState.isValid
                 }
-                className="w-full inline-flex gap-x-1"
+                className="w-full inline-flex gap-x-2"
                 type="submit"
               >
                 <span>Submit</span>
-                <ColorRing
-                  visible={loading}
-                  height="25"
-                  width="25"
-                  ariaLabel="blocks-loading"
-                  wrapperStyle={{}}
-                  wrapperClass="blocks-wrapper"
-                  colors={["#fff", "#fff", "#fff", "#fff", "#fff"]}
+                <Spinner
+                  className="text-background"
+                  size={8}
+                  speed={1}
+                  animating={loading}
                 />
               </Button>
               <div className="w-full flex justify-center">
